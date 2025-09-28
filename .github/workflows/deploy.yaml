@@ -36,6 +36,9 @@ jobs:
         with:
           name: dist-folder
           path: dist/
+      - name: Force failure
+        run: exit 1
+
   deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
     needs:
@@ -50,10 +53,11 @@ jobs:
       - name: Deploy
         run: echo "Deploying..."
 
-  notify:
+  notify-success:
     needs:
+      - build
       - deploy
-    if: always()
+    if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Discord notification
@@ -61,6 +65,22 @@ jobs:
           DISCORD_WEBHOOK: https://discord.com/api/webhooks/1421700405376585879/e1Wc5sJiPEzTAEKaU9aFalGCgvMaBX_vV5-l7dmODD47Mex1IBvHX5OJtZIFnr16DzR7
         uses: Ilshidur/action-discord@master
         with:
-          args: 'The project ${{ github.event.repository.full_name }} has been deployed. by ${{ github.actor }}'
+          args: 'The project ${{ github.event.repository.full_name }} has been deployed. by ${{ github.actor }} status: success.'
+      - name: Final step
+        run: echo "Deployment complete!"
+
+  notify-failure:
+    needs:
+      - build
+      - deploy
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: https://discord.com/api/webhooks/1421700405376585879/e1Wc5sJiPEzTAEKaU9aFalGCgvMaBX_vV5-l7dmODD47Mex1IBvHX5OJtZIFnr16DzR7
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The project ${{ github.event.repository.full_name }} has been deployed. by ${{ github.actor }} status: failure. This is why it failed: ${{ needs.build.result }}'
       - name: Final step
         run: echo "Deployment complete!"
