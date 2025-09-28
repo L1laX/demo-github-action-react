@@ -46,7 +46,7 @@ jobs:
           path: ./dist
       - name: Deploy to surge
         id: deploy
-        uses: ./.github/actions/deploy-to-surge
+        uses: ./.github/actions/deploy-on-surge
         with:
           SURGE-DOMAIN: ${{ vars.SURGE_DOMAIN }}
           SURGE-TOKEN: ${{ secrets.SURGE_TOKEN }}
