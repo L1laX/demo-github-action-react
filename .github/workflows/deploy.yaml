@@ -12,13 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: oven/bun:${{ vars.BUN_VERSION }}
     steps:
       - name: Clone repo
         uses: actions/checkout@v5
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: ${{ vars.BUN_VERSION }}
       - name: Cache dependencies
         uses: actions/cache@v4
         with:
