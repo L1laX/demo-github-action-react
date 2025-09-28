@@ -1,0 +1,19 @@
+name: Deploy on Surge
+description: Deploy the project on Surge
+inputs:
+  SURGE-TOKEN:
+    description: 'Surge token for authentication'
+    required: true
+  SURGE-DOMAIN:
+    description: 'Domain to deploy the project'
+    required: true
+  SURGE-PROJECT-PATH:
+    description: 'Path to the project to deploy'
+    required: false
+    default: dist
+  SURGE-EMAIL:
+    description: 'Email associated with the Surge account'
+    required: true
+runs:
+  using: node24
+  main: dist-folder/index.js
