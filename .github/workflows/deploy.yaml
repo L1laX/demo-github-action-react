@@ -18,7 +18,7 @@ jobs:
       - name: Get Code
         uses: actions/checkout@v4
       - name: Get deps and cache
-        uses: ./.github/actions/install-cache
+        uses: .github/actions/install-cache
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -61,6 +61,6 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'The project ${{ github.event.repository.full_name }} has been deployed. by ${{ github.actor }} status: failure. This is why it failed: ${{ needs.build }}'
+          args: 'The project ${{ github.event.repository.full_name }} failed to deploy. by ${{ github.actor }} status: failure. See build job output: ${{ toJson(needs.build) }}'
       - name: Final step
         run: echo "Deployment complete!"
