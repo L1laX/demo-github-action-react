@@ -1,0 +1,20 @@
+name: Install deps and cache
+description: Install dependencies and cache them
+runs:
+  using: composite
+  steps:
+    - name: Clone repo
+      uses: actions/checkout@v5
+    - name: Set up Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ vars.BUN_VERSION}}
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.bun/install/cache
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+    - name: Install dependencies
+      shell: bash
+      run: bun i
