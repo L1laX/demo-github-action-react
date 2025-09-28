@@ -37,7 +37,6 @@ jobs:
   notify-success:
     needs:
       - build
-      - deploy
     if: success()
     runs-on: ubuntu-latest
     steps:
@@ -53,7 +52,6 @@ jobs:
   notify-failure:
     needs:
       - build
-      - deploy
     if: failure()
     runs-on: ubuntu-latest
     steps:
