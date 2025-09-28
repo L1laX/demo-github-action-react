@@ -37,7 +37,7 @@ jobs:
           name: dist-folder
           path: dist/
   deploy:
-    if: ${{ github.ref != 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     needs:
       - build
     runs-on: ubuntu-latest
@@ -49,3 +49,17 @@ jobs:
           path: dist
       - name: Deploy
         run: echo "Deploying..."
+
+  notify:
+    needs:
+      - deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: https://discord.com/api/webhooks/1421700408480370708/VEbWDOVHejXd5UuXHhwEPSlF8yMPHcfZFHOy9nMnQObdCmRKysglhVriatpLSpydxDuI
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
+      - name: Final step
+        run: echo "Deployment complete!"
