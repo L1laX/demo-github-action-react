@@ -81,6 +81,6 @@ jobs:
           DISCORD_WEBHOOK: https://discord.com/api/webhooks/1421700405376585879/e1Wc5sJiPEzTAEKaU9aFalGCgvMaBX_vV5-l7dmODD47Mex1IBvHX5OJtZIFnr16DzR7
         uses: Ilshidur/action-discord@master
         with:
-          args: 'The project ${{ github.event.repository.full_name }} has been deployed. by ${{ github.actor }} status: failure. This is why it failed: ${{ needs.build.result }}'
+          args: 'The project ${{ github.event.repository.full_name }} has been deployed. by ${{ github.actor }} status: failure. This is why it failed: ${{ needs.build }}'
       - name: Final step
         run: echo "Deployment complete!"

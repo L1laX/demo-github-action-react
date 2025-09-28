@@ -1,0 +1,16 @@
+name: Matrix
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        bun-version: [1.2.0, 1.1.18, 1.2.16]
+        browser: [chrome, firefox, safari]
+    steps:
+      - name: Print matrix values
+        run: echo "Testing with Bun version ${{ matrix.bun-version }} on ${{ matrix.browser }}"
