@@ -14,10 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
-
     steps:
       - name: Get Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -32,7 +31,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.USERNAME }}/react-demo1:latest
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/react-demo1:latest
 
   notify-success:
     needs:
