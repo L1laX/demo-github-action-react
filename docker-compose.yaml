@@ -1,0 +1,8 @@
+services:
+  web:
+    image: palml1lax/react-demo1
+    container_name: react-demo1
+    ports:
+      - "3000:3000"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
