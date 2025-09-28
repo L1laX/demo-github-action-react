@@ -11,6 +11,14 @@ jobs:
       matrix:
         bun-version: [1.2.0, 1.1.18, 1.2.16]
         browser: [chrome, firefox, safari]
+        exclude:
+          - bun-version: 1.1.18
+            browser: safari
+        include:
+          - bun-version: 1.2.18
+            browser: edge
+          - bun-version: 1.1.16
+            browser: opera
     steps:
       - name: Print matrix values
         run: echo "Testing with Bun version ${{ matrix.bun-version }} on ${{ matrix.browser }}"
